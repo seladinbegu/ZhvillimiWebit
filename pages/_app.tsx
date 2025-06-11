@@ -1,15 +1,18 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import { SessionProvider } from "next-auth/react";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { NewsProvider } from "@/lib/contexts/NewsContext";
 
-export default function App({ Component, pageProps }: AppProps) {
- return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
-      <Header />
-      <main className="flex-grow px-6 py-8">
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  return (
+    <SessionProvider session={session}>
+      <NewsProvider>
+        <Header />
         <Component {...pageProps} />
-      </main>
-      <Footer />
-    </div>
-  );}
+        <Footer></Footer>
+      </NewsProvider>
+    </SessionProvider>
+  );
+}
