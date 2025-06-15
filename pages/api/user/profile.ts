@@ -26,7 +26,7 @@ export default async function handler(
     const { _id, name, email: userEmail } = user;
 
     return res.status(200).json({
-      id: _id.toString(), // convert ObjectId to string
+      userId: _id.toString(), // <-- changed here to 'userId'
       name,
       email: userEmail,
     });
